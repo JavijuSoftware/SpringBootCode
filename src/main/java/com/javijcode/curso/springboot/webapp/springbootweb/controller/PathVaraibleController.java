@@ -2,6 +2,7 @@ package com.javijcode.curso.springboot.webapp.springbootweb.controller;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +29,13 @@ public class PathVaraibleController {
     @Value("${config.message}")
     private String message;
     @Value("${config.listOfValues}")
-    private String[] listOfValues;
+    private List<String> listOfValues;
     @Value("${config.code}")
     private Integer code;
+    @Value("#{'${config.listOfValues}'.toUpperCase().split(',')}")
+    private List<String> listOfValues2;
+    @Value("#{'${config.listOfValues}'.toUpperCase().replace(',', ' ')}")
+    private String listString;
 
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -72,6 +77,8 @@ public class PathVaraibleController {
         json.put("message", message);
         json.put("listOfValues", Arrays.asList(listOfValues));
         json.put("code", code);
+        json.put("listOfValues2", listOfValues2);
+        json.put("listString", listString);
 
         return json;
     }
