@@ -32,6 +32,7 @@ public class PathVaraibleController {
     private List<String> listOfValues;
     @Value("${config.code}")
     private Integer code;
+    // Capitulo 35 - Expresion Language (SpEL) con @Value
     @Value("#{'${config.listOfValues}'.toUpperCase().split(',')}")
     private List<String> listOfValues2;
     @Value("#{'${config.listOfValues}'.toUpperCase().replace(',', ' ')}")
