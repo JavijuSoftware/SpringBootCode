@@ -1,8 +1,10 @@
 package com.javijcode.curso.springboot.webapp.springbootweb.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +16,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+
 // Capitulo 29 - @PathVariable
 @RestController
 @RequestMapping("/api/var")
 public class PathVaraibleController {
+
+    // Capitulo 32 - Inyectar valores con la anotación @Value desde el archivo application.properties
+    @Value("${config.username}")
+    private String username;
+    @Value("${config.message}")
+    private String message;
+    @Value("${config.listOfValues}")
+    private String[] listOfValues;
+    @Value("${config.code}")
+    private Integer code;
 
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -48,6 +61,19 @@ public class PathVaraibleController {
         //hacer algo con el usuario save en la bbdd
         
         return user;
+    }
+
+    // Capitulo 32 - Inyectar valores con la anotación @Value desde el archivo application.properties
+    // localhost:8080/api/var/values
+    @GetMapping("/values")  
+    public Map<String, Object> values() {
+        Map<String, Object> json = new HashMap<>();
+        json.put("username", username);
+        json.put("message", message);
+        json.put("listOfValues", Arrays.asList(listOfValues));
+        json.put("code", code);
+
+        return json;
     }
     
 
