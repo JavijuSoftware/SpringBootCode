@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.javijcode.curso.springboot.webapp.springbootweb.models.User;
 import com.javijcode.curso.springboot.webapp.springbootweb.models.dto.ParamDto;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 // Capitulo 29 - @PathVariable
 @RestController
@@ -34,5 +38,17 @@ public class PathVaraibleController {
         json.put("id", id);
         return json;
     }
+
+    // Capituro 31 - Api Rest enviar Json petición POST
+    // envia desde postman POST => localhost:8080/api/var/create
+    @PostMapping("/create")   
+    public User create(@RequestBody User user) {
+        user.setName(user.getName().toUpperCase());
+        user.setLastname(user.getLastname().toUpperCase().concat(" ").concat("3.0"));
+        //hacer algo con el usuario save en la bbdd
+        
+        return user;
+    }
+    
 
 }
