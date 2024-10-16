@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySources;
 // Capitulo 33 - Inyectar valores con la anotación @Value desde el archivo values.properties
 // para configurar con varios properties se utilizara @PropertySources
 @PropertySources({
-	@PropertySource("classpath:values.properties")
+	@PropertySource(value="classpath:values.properties", encoding="UTF-8")
 })
 
 public class ValuesConfig {
