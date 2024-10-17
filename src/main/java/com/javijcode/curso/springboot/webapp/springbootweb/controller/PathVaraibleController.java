@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +47,9 @@ public class PathVaraibleController {
     private Long price;
     @Value("#{${config.valuesMap}.description}")
     private String description;
+    // Capitulo 37 - Environment
+    @Autowired
+    private Environment environment;
 
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -91,6 +96,28 @@ public class PathVaraibleController {
         json.put("valuesMap", valuesMap);
         json.put("product", product);
         json.put("price", price);
+        json.put("description", description);
+        return json;
+    }
+
+    // Capitulo 37 - Enverioment
+    @GetMapping("/valuesEnverioment")  
+    public Map<String, Object> valuesEnveriomente() {
+        Map<String, Object> json = new HashMap<>();
+        Long codeLong = environment.getProperty("config.code", Long.class);
+
+        json.put("username", username);
+        json.put("message", message);
+        json.put("message2", environment.getProperty("config.message"));
+        json.put("listOfValues", Arrays.asList(listOfValues));
+        json.put("code", code);
+        json.put("codeInt", Integer.parseInt(environment.getProperty("config.code")));
+        json.put("codeLong", codeLong);
+        json.put("listOfValues2", listOfValues2);
+        json.put("listString", listString);
+        json.put("valuesMap", valuesMap);
+        json.put("product", product);
+        json.put("price", price);        
         json.put("description", description);
         return json;
     }
